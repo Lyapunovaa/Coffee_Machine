@@ -33,10 +33,10 @@ public class CoffeeMachine {
 
                 break;
             case "fill":
-
+                fill();
                 break;
             case "take":
-
+                take();
                 break;
             default:
                 System.out.println("error");
@@ -44,13 +44,27 @@ public class CoffeeMachine {
     }
 
     public static void buy() {
-        
+
     }
 
     public static void fill() {
+        System.out.println("Write how many ml of water do you want to add:");
+        int waterD = scanner.nextInt();
+        System.out.println("Write how many ml of milk do you want to add:");
+        int milkD = scanner.nextInt();
+        System.out.println("Write how many grams of coffee beans do you want to add:");
+        int beanD = scanner.nextInt();
+        System.out.println("Write how many disposable cups of coffee do you want to add:");
+        int cupsD = scanner.nextInt();
+        waterNow += waterD;
+        milkNow += milkD;
+        beansNow += beanD;
+        cupsNow += cupsD;
     }
 
     public static void take() {
+        System.out.println("I gave you $"+moneyNow + "\n");
+        moneyNow = 0;
     }
 
 }
