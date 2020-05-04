@@ -11,7 +11,6 @@ public class CoffeeMachine {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
         state();
         action();
         state();
@@ -30,7 +29,7 @@ public class CoffeeMachine {
         String inp = scanner.nextLine();
         switch (inp) {
             case "buy":
-
+                buy();
                 break;
             case "fill":
                 fill();
@@ -44,6 +43,32 @@ public class CoffeeMachine {
     }
 
     public static void buy() {
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+        int take = scanner.nextInt();
+        switch (take) {
+            case 1:
+                waterNow -= 250;
+                beansNow -= 16;
+                moneyNow += 4;
+                cupsNow -= 1;
+                break;
+            case 2:
+                waterNow -= 350;
+                milkNow -= 75;
+                beansNow -= 20;
+                moneyNow += 7;
+                cupsNow -= 1;
+                break;
+            case 3:
+                waterNow -= 200;
+                milkNow -= 100;
+                beansNow -= 12;
+                moneyNow += 6;
+                cupsNow -= 1;
+                break;
+            default:
+                System.out.println("error");
+        }
 
     }
 
@@ -63,7 +88,7 @@ public class CoffeeMachine {
     }
 
     public static void take() {
-        System.out.println("I gave you $"+moneyNow + "\n");
+        System.out.println("I gave you $" + moneyNow + "\n");
         moneyNow = 0;
     }
 
