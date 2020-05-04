@@ -11,9 +11,7 @@ public class CoffeeMachine {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        state();
         action();
-
     }
 
 
@@ -83,6 +81,11 @@ public class CoffeeMachine {
 
     }
 
+    static String inputString() {
+        String input = scanner.nextLine();
+        return input;
+    }
+
     public static void fill() {
         System.out.println("Write how many ml of water do you want to add:");
         int waterD = scanner.nextInt();
@@ -92,6 +95,12 @@ public class CoffeeMachine {
         int beanD = scanner.nextInt();
         System.out.println("Write how many disposable cups of coffee do you want to add:");
         int cupsD = scanner.nextInt();
+        inputString();
+        filled(waterD, milkD, beanD, cupsD);
+
+    }
+
+    static void filled(int waterD, int milkD, int beanD, int cupsD) {
         waterNow += waterD;
         milkNow += milkD;
         beansNow += beanD;
