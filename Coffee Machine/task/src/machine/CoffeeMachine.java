@@ -13,7 +13,7 @@ public class CoffeeMachine {
     public static void main(String[] args) {
         state();
         action();
-        state();
+
     }
 
 
@@ -25,49 +25,60 @@ public class CoffeeMachine {
     }
 
     public static void action() {
-        System.out.println("Write action (buy, fill, take):");
+        System.out.println("Write action (buy, fill, take, remaining, exit):");
         String inp = scanner.nextLine();
         switch (inp) {
             case "buy":
                 buy();
+                action();
                 break;
             case "fill":
                 fill();
+                action();
                 break;
             case "take":
                 take();
+                action();
+                break;
+            case "remaining":
+                state();
+                action();
+                break;
+            case "exit":
                 break;
             default:
-                System.out.println("error");
+                action();
+                break;
         }
     }
 
     public static void buy() {
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-        int take = scanner.nextInt();
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+        String take = scanner.nextLine();
         switch (take) {
-            case 1:
+            case "1":
                 waterNow -= 250;
                 beansNow -= 16;
                 moneyNow += 4;
                 cupsNow -= 1;
                 break;
-            case 2:
+            case "2":
                 waterNow -= 350;
                 milkNow -= 75;
                 beansNow -= 20;
                 moneyNow += 7;
                 cupsNow -= 1;
                 break;
-            case 3:
+            case "3":
                 waterNow -= 200;
                 milkNow -= 100;
                 beansNow -= 12;
                 moneyNow += 6;
                 cupsNow -= 1;
                 break;
-            default:
-                System.out.println("error");
+            case "back":
+                break;
+
         }
 
     }
@@ -85,11 +96,14 @@ public class CoffeeMachine {
         milkNow += milkD;
         beansNow += beanD;
         cupsNow += cupsD;
+
     }
+
 
     public static void take() {
         System.out.println("I gave you $" + moneyNow + "\n");
         moneyNow = 0;
+
     }
 
 }
