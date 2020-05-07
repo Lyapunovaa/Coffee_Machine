@@ -2,83 +2,55 @@ package machine;
 
 import java.util.Scanner;
 
-class Main {
+public class CoffeeMachine {
+    static int waterNow = 400;
+    static int milkNow = 540;
+    static int beansNow = 120;
+    static int cupsNow = 9;
+    static int moneyNow = 550;
     static Scanner scanner = new Scanner(System.in);
 
-    static String inputString() {
-        String empty = scanner.nextLine();
-        return empty;
-    }
-
     public static void main(String[] args) {
-        CoffeeMachine cm = new CoffeeMachine(400, 540, 120, 9, 550, State.ACTION) { };
-        cm.state();
-        State inp = State.of(scanner.nextLine());
-        cm.action(inp);
-    }
-}
-
-
-public class CoffeeMachine {
-    int waterNow;
-    int milkNow;
-    int beansNow;
-    int cupsNow;
-    int moneyNow;
-    State state;
-
-
-
-    public CoffeeMachine(int waterNow, int milkNow, int beansNow, int cupsNow, int moneyNow, State state) {
-        this.waterNow = waterNow;
-        this.milkNow = milkNow;
-        this.beansNow = beansNow;
-        this.cupsNow = cupsNow;
-        this.moneyNow = moneyNow;
-        this.state = State.ACTION;
-    }
-
-    void state(){
-        System.out.println("Write action (buy, fill, take, remaining, exit):");
+        action();
     }
 
 
-
-
-
-
-    void raw_state() {
+    public static void state() {
         System.out.println("The coffee machine has:");
         System.out.println(
                 waterNow + " of water\n" + milkNow + " of milk\n" + beansNow + " of coffee beans\n" +
                         cupsNow + " of disposable cups\n" + moneyNow + " of money");
     }
 
-    void action(State inp) {
+    public static void action() {
+        System.out.println("Write action (buy, fill, take, remaining, exit):");
+        String inp = scanner.nextLine();
         switch (inp) {
-            case BUY:
+            case "buy":
                 buy();
-                action(State.ACTION);
+                action();
                 break;
-            case FILL:
+            case "fill":
                 fill();
-                action(State.ACTION);
+                action();
                 break;
-            case TAKE:
+            case "take":
                 take();
-                action(State.ACTION);
+                action();
                 break;
-            case REMAINING:
-                raw_state();;
-                action(State.ACTION);
+            case "remaining":
+                state();
+                action();
                 break;
-            case EXIT:
+            case "exit":
                 break;
-
+            default:
+                action();
+                break;
         }
     }
 
-    void buy() {
+    public static void buy() {
         System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
         String take = scanner.nextLine();
         switch (take) {
@@ -172,8 +144,12 @@ public class CoffeeMachine {
 
     }
 
+    static String inputString() {
+        String input = scanner.nextLine();
+        return input;
+    }
 
-    void fill() {
+    public static void fill() {
         System.out.println("Write how many ml of water do you want to add:");
         int waterD = scanner.nextInt();
         System.out.println("Write how many ml of milk do you want to add:");
@@ -182,94 +158,24 @@ public class CoffeeMachine {
         int beanD = scanner.nextInt();
         System.out.println("Write how many disposable cups of coffee do you want to add:");
         int cupsD = scanner.nextInt();
-
         inputString();
         filled(waterD, milkD, beanD, cupsD);
 
     }
 
-    void filled(int waterD, int milkD, int beanD, int cupsD) {
-        this.waterNow += waterD;
-        this.milkNow += milkD;
-        this.beansNow += beanD;
-        this.cupsNow += cupsD;
-    }
-
-
-    void take() {
-        System.out.println("I gave you $" + this.moneyNow + "\n");
-        this.moneyNow = 0;
+    static void filled(int waterD, int milkD, int beanD, int cupsD) {
+        waterNow += waterD;
+        milkNow += milkD;
+        beansNow += beanD;
+        cupsNow += cupsD;
 
     }
 
-}
 
-class Raw {
-    int addWater;
-    int addMilk;
-    int addBean;
-    int addCups;
+    public static void take() {
+        System.out.println("I gave you $" + moneyNow + "\n");
+        moneyNow = 0;
 
-    public Raw(int addWater, int addMilk, int addBean, int addCups) {
-        this.addWater = addWater;
-        this.addMilk = addMilk;
-        this.addBean = addBean;
-        this.addCups = addCups;
-    }
-
-
-}
-
-enum State {
-    ACTION("action"),
-    BUY("buy"),
-    TAKE("take"),
-    FILL("fill"),
-    REMAINING("remaining"),
-    EXIT("exit");
-
-
-    String input;
-
-    State(String input) {
-        this.input = input;
-    }
-
-    public static State of(String input){
-        for(State value : values()) {
-            if (input.equals(value.input)){
-                return value;
-            }
-        } return ACTION;
     }
 
 }
-
-enum Coffe {
-    ESPRESSO("espresso", 1, 250, 0, 16, 4),
-    LATTE("latte", 2, 350, 75, 20, 7),
-    CAPPUCCINO("cappuccino", 3, 200, 100, 12, 6);
-
-    String name;
-    int typNum;
-    int useWater;
-    int useMilk;
-    int useBeans;
-    int price;
-
-    Coffe(String name, int typNum, int useWater, int useMilk, int useBeans, int price) {
-        this.name = name;
-        this.typNum = typNum;
-        this.useWater = useWater;
-        this.useMilk = useMilk;
-        this.useBeans = useBeans;
-        this.price = price;
-    }
-
-    public static Coffe findByTypeNum(int numOftype) {
-        Coffe[] coffee = Coffe.values();
-        Coffe coffeeSelected = coffee[numOftype - 1];
-        return coffeeSelected;
-    }
-}
-
